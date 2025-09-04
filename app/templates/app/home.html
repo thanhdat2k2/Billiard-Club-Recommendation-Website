@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font-Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{%static 'app/css/style.css' %}" />
+    <title>Billiards Hub</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section Code  -->
+      <div class="header">
+        <a href="#" class="logo">
+          <img src="{%static 'app/images/logo.png' %}" alt="Billiards Hub" />
+          <span>Billiards Hub</span>
+        </a>
+        <div class="search-bar">
+          <form action="#">
+            <button type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input type="text" placeholder="Tìm kiếm ở đây..." />
+          </form>
+        </div>
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Đổi chế độ tối/sáng"
+        >
+          🌙
+        </button>
+      </div>
+      <div class="intro">
+        <div class="content-intro">
+          <h1>Hí anh em !!!</h1>
+          <p>
+            Với mong muốn tạo một website, nơi anh em có thể tìm kiếm các quán
+            bi a một cách nhanh nhất.
+          </p>
+          <p>
+            Billiards Hub được xây dựng với những tính năng đơn giản dễ dùng,
+            hứa hẹn sẽ giúp anh em dễ dàng chọn được quán bi a một cách nhanh
+            gọn.
+          </p>
+          <p>Anh em có đóng góp gì liên hệ mình nhé!</p>
+          <p>Zalo: 0372.564.801</p>
+        </div>
+      </div>
+
+      <div class="main">
+        <!-- Filter Sidebar Code -->
+        <div class="filters">
+          <div class="heading-filters">
+            <i class="fa-solid fa-filter"></i>
+            <h2>Bộ lọc tìm kiếm</h2>
+          </div>
+          <details open id="district">
+            <summary>Quận/Huyện</summary>
+            <div class="options">
+              <label class="checkbox"
+                ><input type="checkbox" value="Ba Đình" />Ba Đình</label
+              >
+              <label class="checkbox"
+                ><input type="checkbox" value="Cầu Giấy" />Cầu Giấy</label
+              >
+              <label class="checkbox"
+                ><input type="checkbox" value="Đống Đa" />Đống Đa</label
+              >
+              <!-- ... -->
+            </div>
+          </details>
+          <hr />
+
+          <details id="price">
+            <summary>Mức giá</summary>
+            <div class="options">
+              <button type="button" class="chip">≤ 50k</button>
+              <button type="button" class="chip">50k–100k</button>
+              <button type="button" class="chip">≥ 200k</button>
+            </div>
+          </details>
+          <hr />
+
+          <details id="table">
+            <summary>Loại bàn</summary>
+            <div class="options">
+              <label class="checkbox"
+                ><input type="checkbox" value="Mr Sung" />Mr Sung</label
+              >
+              <label class="checkbox"
+                ><input type="checkbox" value="Rasson" />Rasson</label
+              >
+              <label class="checkbox"
+                ><input type="checkbox" value="Diamond" />Diamond</label
+              >
+            </div>
+          </details>
+          <hr />
+
+          <details id="rate">
+            <summary>Đánh giá</summary>
+            <div class="options">
+              <label class="radio"
+                ><input type="radio" name="rate" value="5" />Từ 5⭐</label
+              >
+              <label class="radio"
+                ><input type="radio" name="rate" value="4" />Từ 4⭐</label
+              >
+              <label class="radio"
+                ><input type="radio" name="rate" value="3" />Từ 3⭐</label
+              >
+              <label class="radio"
+                ><input type="radio" name="rate" value="2" />Từ 2⭐</label
+              >
+              <label class="radio"
+                ><input type="radio" name="rate" value="1" />Từ 1⭐</label
+              >
+              <label class="radio"
+                ><input type="radio" name="rate" value="0" />Tất cả</label
+              >
+            </div>
+          </details>
+          <hr />
+        </div>
+
+        <!-- Main Content Section Code -->
+        <div class="content">
+          <section class="grid" id="cards">
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+            <div class="card">
+              <div class="thumb">
+                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              </div>
+              <h4>SAM Billiards Arena</h4>
+              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
+            </div>
+          </section>
+          <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+          </div>
+        </div>
+      </div>
+      <!-- Footer Section Code -->
+      <div class="footer">
+        <p class="copyright">&copy; Billiards Hub - All Rights Reserved</p>
+      </div>
+    </div>
+  </body>
+  <!--Javascript-->
+  <script src="{%static 'app/js/script.js' %}"></script>
+</html>

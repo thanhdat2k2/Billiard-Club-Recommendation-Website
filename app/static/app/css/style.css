@@ -1,0 +1,378 @@
+/* Reset gọn */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+:root {
+  --primary: #2f6464;
+  --surface: #fff;
+  --intro: #6d9090;
+  --border: #e6efe6;
+  --thumb: #eef4f4;
+  --accent: #72ac74;
+  --hover: #ddd;
+  --text: black;
+  --text-inverse: white;
+}
+
+/* ---------------- */
+/* -----Header----- */
+/* ---------------- */
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 150px 24px 150px;
+  background: var(--primary);
+  transition: all 1.05s ease;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px; /* cỡ chữ tiêu đề */
+  font-weight: 700;
+  color: var(--surface);
+  text-decoration: none;
+  line-height: 1;
+}
+.header .logo img {
+  height: 3rem;
+  width: auto;
+}
+
+.header .logo:hover {
+  transform: scale(1.05);
+}
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-bar form {
+  display: flex;
+  width: 700px;
+}
+
+.search-bar button {
+  border: 0;
+  outline: 0;
+  padding: 10px;
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.search-bar input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 10px;
+  border-radius: 0 8px 8px 0;
+  color: var(--primary);
+}
+
+.search-bar input::placeholder {
+  color: var(--primary);
+}
+
+/* --------------- */
+/* -----Intro----- */
+/* --------------- */
+.intro {
+  padding: 0px 150px 24px 150px;
+}
+
+.intro .content-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--intro);
+  padding: 10px;
+  color: var(--surface);
+  gap: 10px;
+}
+
+/* -------------- */
+/* -----Main----- */
+/* -------------- */
+.main {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px 150px 0 150px;
+}
+
+/* ----Filters---- */
+.filters {
+  flex: 0 0 240px;
+}
+
+.heading-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 0;
+}
+
+.filters details {
+  padding: 10px;
+}
+summary {
+  font-weight: 600;
+}
+#district .options,
+#table .options,
+#rate .options {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+#price .options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+#price .options button {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.checkbox input,
+.radio input {
+  margin-right: 8px;
+}
+
+/* ----Content---- */
+.content {
+  flex: 1 1 0; /* lấy toàn bộ phần còn lại */
+  min-width: 0; /* tránh tràn khi có lưới/cards */
+  padding: 0 0 10px 10px;
+  margin-left: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px; /* khoảng cách giữa các card */
+  align-items: start;
+}
+
+.content .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.content .card .thumb {
+  aspect-ratio: 16 / 9; /* giữ tỉ lệ ảnh */
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--thumb);
+}
+
+.content .card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---Pagination--- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.pagination a {
+  color: var(--text);
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.pagination a.active {
+  background-color: var(--accent);
+  color: var(--text-inverse);
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: var(--hover);
+  border-radius: 5px;
+}
+
+/* ----Footer---- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--surface);
+  height: 3rem;
+  background: var(--primary);
+}
+
+/* ----Responsive---- */
+/* ≥ 1280px: giữ layout hiện tại, chỉ để form search “dài linh hoạt” */
+@media (min-width: 1280px) {
+  .search-bar form {
+    width: clamp(520px, 50vw, 760px); /* dài hơn nhưng vẫn giới hạn */
+  }
+}
+
+/* ≤ 1200px: giảm padding ngang, thu nhỏ logo & search */
+@media (max-width: 1200px) {
+  .header {
+    padding: 20px 72px;
+  }
+  .intro {
+    padding: 0px 72px 24px;
+  }
+  .main {
+    padding: 10px 72px 0;
+  }
+
+  .header .logo {
+    font-size: 26px;
+  }
+  .header .logo img {
+    height: 2.4rem;
+  }
+
+  .search-bar form {
+    width: min(350px, 60vw);
+  }
+}
+
+/* ≤ 900px: chuyển thành 1 cột – filters nằm trên content, search full-width */
+@media (max-width: 900px) {
+  .header {
+    padding: 16px 24px;
+  }
+  .intro {
+    padding: 0px 24px 16px;
+  }
+  .main {
+    padding: 10px 24px 0;
+    flex-direction: column;
+  }
+
+  .filters {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .content {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .search-bar {
+    flex: 1;
+  }
+  .search-bar form {
+    width: min(280px, 60vw);
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ≤ 600px: tối ưu cho mobile nhỏ */
+@media (max-width: 600px) {
+  .header .logo {
+    font-size: 22px;
+  }
+  .header .logo img {
+    height: 2rem;
+  }
+  .search-bar form {
+    width: min(180px, 60vw);
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .pagination a {
+    padding: 8px 12px;
+  }
+}
+
+/* ---Dark Mode--- */
+/* nền & chữ toàn trang lấy theo biến */
+html,
+body {
+  height: 100%;
+}
+body {
+  background: var(--page-bg, #f6f9f9);
+  color: var(--text);
+}
+
+/* style input/nút tìm kiếm dùng surface để hợp cả dark & light */
+.search-bar button,
+.search-bar input {
+  background: var(--surface);
+}
+
+/* nút đổi theme */
+.theme-toggle {
+  margin-left: 12px;
+  width: 40px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  background: var(--hover);
+}
+
+/* màu tick của checkbox/radio theo brand */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent, #72ac74);
+}
+
+/* ========== DARK THEME ========== */
+/* Gắn trên <html data-theme="dark"> */
+:root[data-theme="dark"] {
+  --page-bg: #0f1b1b;
+  --primary: #244c4c;
+  --surface: #1a2a2a;
+  --border: #2a3a3a;
+  --thumb: #223333;
+  --hover: #2a3a3a;
+  --text: #e6eeee;
+  --text-inverse: #0b0f0f;
+  --accent: #8fd59a;
+}
+
+/* Luôn giữ chữ trắng ở logo, intro và footer khi dark mode */
+:root[data-theme="dark"] .header .logo,
+:root[data-theme="dark"] .header .search-bar i,
+:root[data-theme="dark"] .header .search-bar input,
+:root[data-theme="dark"] .header .search-bar input::placeholder,
+:root[data-theme="dark"] .intro .content-intro,
+:root[data-theme="dark"] .footer {
+  color: #fff;
+}
