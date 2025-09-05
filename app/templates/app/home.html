@@ -69,15 +69,14 @@
           <details open id="district">
             <summary>Quận/Huyện</summary>
             <div class="options">
+              {% for district in districts %}
               <label class="checkbox"
-                ><input type="checkbox" value="Ba Đình" />Ba Đình</label
+                ><input
+                  type="checkbox"
+                  value="{{district}}"
+                />{{district}}</label
               >
-              <label class="checkbox"
-                ><input type="checkbox" value="Cầu Giấy" />Cầu Giấy</label
-              >
-              <label class="checkbox"
-                ><input type="checkbox" value="Đống Đa" />Đống Đa</label
-              >
+              {% endfor %}
               <!-- ... -->
             </div>
           </details>
@@ -96,15 +95,11 @@
           <details id="table">
             <summary>Loại bàn</summary>
             <div class="options">
+              {% for table in table_types %}
               <label class="checkbox"
-                ><input type="checkbox" value="Mr Sung" />Mr Sung</label
+                ><input type="checkbox" value="{{table}}" />{{table}}</label
               >
-              <label class="checkbox"
-                ><input type="checkbox" value="Rasson" />Rasson</label
-              >
-              <label class="checkbox"
-                ><input type="checkbox" value="Diamond" />Diamond</label
-              >
+              {%endfor%}
             </div>
           </details>
           <hr />
@@ -138,69 +133,20 @@
         <!-- Main Content Section Code -->
         <div class="content">
           <section class="grid" id="cards">
+            {% for club in clubs %}
             <div class="card">
               <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+                <img src="{{club.ImageURL}}" alt="thumb" />
               </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              <div class="name_club" style="font-size: 15px; font-weight: 700">
+                {{club.name}}
               </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
+              <div class="meta" style="font-size: 14px">
+                {{club.district}}&nbsp <strong>·</strong>&nbsp {{club.price}}
+                &nbsp<strong>·</strong> &nbsp{{club.rate}}⭐
               </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
             </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
-              </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
-              </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
-              </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
-              </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
-              </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
-            <div class="card">
-              <div class="thumb">
-                <img src="{%static 'app/images/thumb.jpg' %}" alt="thumb" />
-              </div>
-              <h4>SAM Billiards Arena</h4>
-              <div class="meta">Hai Bà Trưng · 39k–65k/giờ · ⭐5</div>
-            </div>
+            {% endfor %}
           </section>
           <div class="pagination">
             <a href="#">&laquo;</a>
