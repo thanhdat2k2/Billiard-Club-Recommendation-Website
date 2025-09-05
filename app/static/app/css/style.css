@@ -148,10 +148,28 @@ summary {
   padding: 6px;
   cursor: pointer;
 }
+.chip.active,
+.chip[aria-pressed="true"] {
+  background: #7ef895;
+  color: #fff;
+  border-color: #4cee6f;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #7ef895 35%, transparent);
+  font-weight: 600;
+}
 
 .checkbox input,
 .radio input {
   margin-right: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 /* ----Content---- */
@@ -190,6 +208,22 @@ summary {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+#cards.is-loading {
+  position: relative;
+}
+#cards.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+#cards.is-loading .card {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
 }
 
 /* ---Pagination--- */

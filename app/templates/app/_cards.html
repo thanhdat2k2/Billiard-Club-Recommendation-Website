@@ -1,0 +1,16 @@
+{% for club in clubs %}
+<div class="card">
+  <div class="thumb">
+    <img src="{{ club.ImageURL }}" alt="thumb" />
+  </div>
+  <div class="name_club" style="font-size: 15px; font-weight: 700">
+    {{ club.name }}
+  </div>
+  <div class="meta" style="font-size: 14px">
+    {{ club.district }} &nbsp; <strong>·</strong> &nbsp; {{ club.price }} &nbsp;
+    <strong>·</strong> &nbsp; {{ club.rate }}⭐
+  </div>
+</div>
+{% empty %}
+<p>Không có kết quả phù hợp.</p>
+{% endfor %}

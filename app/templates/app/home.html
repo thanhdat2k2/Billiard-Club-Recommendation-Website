@@ -66,87 +66,127 @@
             <i class="fa-solid fa-filter"></i>
             <h2>Bộ lọc tìm kiếm</h2>
           </div>
-          <details open id="district">
-            <summary>Quận/Huyện</summary>
-            <div class="options">
-              {% for district in districts %}
-              <label class="checkbox"
-                ><input
-                  type="checkbox"
-                  value="{{district}}"
-                />{{district}}</label
-              >
-              {% endfor %}
-              <!-- ... -->
-            </div>
-          </details>
-          <hr />
+          <form id="filters" method="get">
+            <details open id="district">
+              <summary>Quận/Huyện</summary>
+              <div class="options">
+                {% for district in districts %}
+                <label class="checkbox">
+                  <input
+                    type="checkbox"
+                    name="district"
+                    value="{{ district }}"
+                    {%
+                    if
+                    district
+                    in
+                    selected_districts
+                    %}checked{%
+                    endif
+                    %}
+                  />
+                  {{ district }}
+                </label>
+                {% endfor %}
+              </div>
+            </details>
+            <hr />
 
-          <details id="price">
-            <summary>Mức giá</summary>
-            <div class="options">
-              <button type="button" class="chip">≤ 50k</button>
-              <button type="button" class="chip">50k–100k</button>
-              <button type="button" class="chip">≥ 200k</button>
-            </div>
-          </details>
-          <hr />
+            <details open id="price">
+              <summary>Mức giá</summary>
+              <div class="options">
+                <!-- input ẩn để nhớ chip đã chọn -->
+                <input
+                  type="hidden"
+                  name="price_band"
+                  id="priceBandInput"
+                  value="{{ price_band|default:'' }}"
+                />
+                <button type="button" class="chip active" data-value="<=50">
+                  ≤ 50k
+                </button>
+                <button type="button" class="chip active" data-value="50-100">
+                  50k–100k
+                </button>
+                <button type="button" class="chip active" data-value=">=200">
+                  ≥ 200k
+                </button>
+              </div>
+            </details>
+            <hr />
 
-          <details id="table">
-            <summary>Loại bàn</summary>
-            <div class="options">
-              {% for table in table_types %}
-              <label class="checkbox"
-                ><input type="checkbox" value="{{table}}" />{{table}}</label
-              >
-              {%endfor%}
-            </div>
-          </details>
-          <hr />
+            <details open id="table">
+              <summary>Loại bàn</summary>
+              <div class="options">
+                {% for table_type_name in table_types %}
+                <label class="checkbox">
+                  <input
+                    type="checkbox"
+                    name="table_type"
+                    value="{{ table_type_name }}"
+                    {%
+                    if
+                    table_type_name
+                    in
+                    selected_types
+                    %}checked{%
+                    endif
+                    %}
+                  />
+                  {{ table_type_name }}
+                </label>
+                {% endfor %}
+              </div>
+            </details>
+            <hr />
 
-          <details id="rate">
-            <summary>Đánh giá</summary>
-            <div class="options">
-              <label class="radio"
-                ><input type="radio" name="rate" value="5" />Từ 5⭐</label
-              >
-              <label class="radio"
-                ><input type="radio" name="rate" value="4" />Từ 4⭐</label
-              >
-              <label class="radio"
-                ><input type="radio" name="rate" value="3" />Từ 3⭐</label
-              >
-              <label class="radio"
-                ><input type="radio" name="rate" value="2" />Từ 2⭐</label
-              >
-              <label class="radio"
-                ><input type="radio" name="rate" value="1" />Từ 1⭐</label
-              >
-              <label class="radio"
-                ><input type="radio" name="rate" value="0" />Tất cả</label
-              >
-            </div>
-          </details>
-          <hr />
+            <details open id="rate">
+              <summary>Đánh giá</summary>
+              <div class="options">
+                {% for rating_floor in rating_options %}
+                <label class="radio">
+                  <input type="radio" name="rating_min" value="{{ rating_floor
+                  }}" {% if rating_min == rating_floor %}checked{% endif %}> Từ
+                  {{ rating_floor }}⭐ </label
+                ><br />
+                {% endfor %}
+                <label class="radio">
+                  <input
+                    type="radio"
+                    name="rating_min"
+                    value=""
+                    {%
+                    if
+                    not
+                    rating_min
+                    %}checked{%
+                    endif
+                    %}
+                  />
+                  Tất cả
+                </label>
+              </div>
+            </details>
+            <hr />
+            <button
+              type="submit"
+              class="sr-only"
+              style="
+                padding: 10px;
+                border-radius: 6px;
+                margin-top: 10px;
+                cursor: pointer;
+              "
+            >
+              Áp dụng
+            </button>
+          </form>
         </div>
 
         <!-- Main Content Section Code -->
         <div class="content">
           <section class="grid" id="cards">
-            {% for club in clubs %}
-            <div class="card">
-              <div class="thumb">
-                <img src="{{club.ImageURL}}" alt="thumb" />
-              </div>
-              <div class="name_club" style="font-size: 15px; font-weight: 700">
-                {{club.name}}
-              </div>
-              <div class="meta" style="font-size: 14px">
-                {{club.district}}&nbsp <strong>·</strong>&nbsp {{club.price}}
-                &nbsp<strong>·</strong> &nbsp{{club.rate}}⭐
-              </div>
-            </div>
-            {% endfor %}
+            {% include "app/_cards.html" %}
           </section>
           <div class="pagination">
             <a href="#">&laquo;</a>
