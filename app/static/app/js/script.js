@@ -30,21 +30,20 @@
   }
 })();
 
-// ==================== Filters (AJAX, no reload) ====================
+// ==================== Filters + Pagination (AJAX, no reload) ====================
 document.addEventListener("DOMContentLoaded", () => {
   const filterFormElement = document.getElementById("filters");
   const cardsContainerElement = document.getElementById("cards");
   const priceBandInputElement = document.getElementById("priceBandInput");
 
-  // Nếu không có form hoặc container thì thoát sớm (tránh lỗi trên các trang khác)
   if (!filterFormElement || !cardsContainerElement) return;
 
   let currentFetchController = null;
   let debounceTimerId = null;
   let lastQueryStringCache = null;
 
-  function buildQueryStringFromForm(formElement) {
-    return new URLSearchParams(new FormData(formElement)).toString();
+  function qsFromForm(formElement) {
+    return new URLSearchParams(new FormData(formElement));
   }
 
   function setCardsLoadingState(isLoading) {
@@ -57,10 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
       chip.classList.remove("active");
       chip.setAttribute("aria-pressed", "false");
     });
-
     const selectedValue = priceBandInputElement?.value || "";
     if (!selectedValue) return;
-
     const activeChip = document.querySelector(
       `.chip[data-value="${selectedValue}"]`
     );
@@ -78,11 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  async function refreshCardsWithAjax(replaceUrlInHistory = true) {
-    const queryString = buildQueryStringFromForm(filterFormElement);
-
-    // Nếu tham số không đổi thì không gọi lại (tránh giật)
-    if (queryString === lastQueryStringCache) return;
+  async function doFetchAndRender(queryString, replaceUrlInHistory = true) {
+    if (queryString === lastQueryStringCache) return; // tránh gọi trùng
     lastQueryStringCache = queryString;
 
     if (currentFetchController) currentFetchController.abort();
@@ -96,11 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       const partialHtml = await response.text();
       cardsContainerElement.innerHTML = partialHtml;
-
       if (replaceUrlInHistory) {
-        // dùng replaceState để không “spam” lịch sử
         history.replaceState(null, "", `?${queryString}`);
       }
+      cardsContainerElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     } catch (error) {
       if (error.name !== "AbortError") console.error(error);
     } finally {
@@ -108,28 +104,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 1) Thay đổi checkbox/radio trong form → lọc ngay
+  async function refreshCardsWithAjax(replaceUrlInHistory = true) {
+    const params = qsFromForm(filterFormElement); // không set 'page' => mặc định trang 1
+    await doFetchAndRender(params.toString(), replaceUrlInHistory);
+  }
+
+  async function refreshCardsWithPage(pageNumber, replaceUrlInHistory = true) {
+    const params = qsFromForm(filterFormElement);
+    params.set("page", pageNumber);
+    await doFetchAndRender(params.toString(), replaceUrlInHistory);
+  }
+
+  // ✅ Chỉ MỘT listener document-level cho pagination (tránh trùng)
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a.page-link[data-page]");
+    if (!link) return;
+    event.preventDefault();
+    const page = link.dataset.page;
+    refreshCardsWithPage(page, true);
+  });
+
+  // Thay đổi filter → lọc ngay (reset page về 1)
   filterFormElement.addEventListener("change", () => debounceRefresh());
 
-  // 2) Chip mức giá: click để gán giá trị vào input ẩn rồi lọc
+  // Chip mức giá
   document.querySelectorAll(".chip").forEach((chipButton) => {
     chipButton.addEventListener("click", () => {
       const selectedValue = chipButton.dataset.value || "";
       priceBandInputElement.value =
         priceBandInputElement.value === selectedValue ? "" : selectedValue;
-
       setActivePriceChipFromHiddenInput();
       debounceRefresh();
     });
   });
 
-  // 3) Ngăn submit thật (phòng người dùng bấm Enter) -> dùng AJAX thay thế
+  // Ngăn submit thật
   filterFormElement.addEventListener("submit", (event) => {
     event.preventDefault();
     debounceRefresh();
   });
 
-  // 4) Back/forward: đồng bộ form từ URL rồi render
+  // Back/forward
   window.addEventListener("popstate", () => {
     const urlParams = new URLSearchParams(location.search);
     Array.from(filterFormElement.elements).forEach((element) => {
@@ -145,12 +160,16 @@ document.addEventListener("DOMContentLoaded", () => {
         element.value = urlParams.get(element.name) || "";
       }
     });
-
     setActivePriceChipFromHiddenInput();
-    // ép làm mới nhưng KHÔNG thay URL (đã ở đúng trạng thái)
-    refreshCardsWithAjax(false);
+
+    const pageOnUrl = urlParams.get("page");
+    if (pageOnUrl) {
+      refreshCardsWithPage(pageOnUrl, false);
+    } else {
+      refreshCardsWithAjax(false);
+    }
   });
 
-  // 5) Khởi tạo trạng thái chip giá theo giá trị trong input ẩn
+  // Init
   setActivePriceChipFromHiddenInput();
 });

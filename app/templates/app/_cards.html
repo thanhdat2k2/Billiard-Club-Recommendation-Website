@@ -1,16 +1,53 @@
-{% for club in clubs %}
-<div class="card">
-  <div class="thumb">
-    <img src="{{ club.ImageURL }}" alt="thumb" />
+<section class="grid">
+  {% for club in clubs %}
+  <div class="card">
+    <div class="thumb"><img src="{{ club.ImageURL }}" alt="thumb" /></div>
+    <div class="name_club" style="font-size: 15px; font-weight: 700">
+      {{ club.name }}
+    </div>
+    <div class="meta" style="font-size: 14px">
+      {{ club.district }} &nbsp;<strong>·</strong>&nbsp; {{ club.price }}
+      &nbsp;<strong>·</strong>&nbsp; {{ club.rate }}⭐
+    </div>
   </div>
-  <div class="name_club" style="font-size: 15px; font-weight: 700">
-    {{ club.name }}
-  </div>
-  <div class="meta" style="font-size: 14px">
-    {{ club.district }} &nbsp; <strong>·</strong> &nbsp; {{ club.price }} &nbsp;
-    <strong>·</strong> &nbsp; {{ club.rate }}⭐
-  </div>
-</div>
-{% empty %}
-<p>Không có kết quả phù hợp.</p>
-{% endfor %}
+  {% empty %}
+  <p>Không có kết quả phù hợp.</p>
+  {% endfor %}
+</section>
+
+{% if paginator.num_pages > 1 %} {% with q=request.GET.urlencode %}
+<nav class="pagination" aria-label="Kết quả">
+  {# Prev #} {% if page_obj.has_previous %}
+  <a
+    href="?{% if q %}{{ q }}&{% endif %}page={{ page_obj.previous_page_number }}"
+    class="page-link"
+    data-page="{{ page_obj.previous_page_number }}"
+    aria-label="Trang trước"
+    >&laquo;</a
+  >
+  {% else %}
+  <span class="page-link disabled" aria-disabled="true">&laquo;</span>
+  {% endif %} {# Pages #} {% for p in page_range %} {% if p == '…' %}
+  <span class="page-ellipsis">…</span>
+  {% elif p == page_obj.number %}
+  <span class="page-link active" aria-current="true">{{ p }}</span>
+  {% else %}
+  <a
+    href="?{% if q %}{{ q }}&{% endif %}page={{ p }}"
+    class="page-link"
+    data-page="{{ p }}"
+    >{{ p }}</a
+  >
+  {% endif %} {% endfor %} {# Next #} {% if page_obj.has_next %}
+  <a
+    href="?{% if q %}{{ q }}&{% endif %}page={{ page_obj.next_page_number }}"
+    class="page-link"
+    data-page="{{ page_obj.next_page_number }}"
+    aria-label="Trang sau"
+    >&raquo;</a
+  >
+  {% else %}
+  <span class="page-link disabled" aria-disabled="true">&raquo;</span>
+  {% endif %}
+</nav>
+{% endwith %} {% endif %}
