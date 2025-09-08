@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font-Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'app/css/club_detail.css' %}" />
+    <title>Billiards Hub</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <a href="{% url 'home' %}" class="logo">
+          <img src="{% static 'app/images/logo.png' %}" alt="Billiards Hub" />
+          <span>Billiards Hub</span>
+        </a>
+        <div class="search-bar">
+          <form action="#">
+            <button type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input type="text" placeholder="Tìm kiếm ở đây..." />
+          </form>
+        </div>
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Đổi chế độ tối/sáng"
+        >
+          🌙
+        </button>
+      </div>
+
+      <div class="main" style="padding: 16px 150px">
+        <div class="content">
+          <div id="cards">{% include 'app/_club_detail.html' %}</div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'app/js/script.js' %}"></script>
+  </body>
+</html>

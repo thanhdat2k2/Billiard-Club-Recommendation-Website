@@ -22,16 +22,22 @@
     <div class="container">
       <!-- Header -->
       <div class="header">
-        <a href="#" class="logo">
+        <a href="/" class="logo link-back-to-list">
           <img src="{% static 'app/images/logo.png' %}" alt="Billiards Hub" />
           <span>Billiards Hub</span>
         </a>
         <div class="search-bar">
-          <form action="#">
+          <form id="searchFormElement">
             <button type="submit">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-            <input type="text" placeholder="Tìm kiếm ở đây..." />
+            <input
+              type="text"
+              id="searchTextInputElement"
+              placeholder="Tìm kiếm ở đây..."
+              value="{{ search_text|default:'' }}"
+              autocomplete="off"
+            />
           </form>
         </div>
         <button
@@ -70,6 +76,12 @@
           </div>
 
           <form id="filters" method="get">
+            <input
+              type="hidden"
+              name="search_text"
+              id="searchTextHiddenInputElement"
+              value="{{ search_text|default:'' }}"
+            />
             <!-- Quận/Huyện -->
             <details open id="district">
               <summary>Quận/Huyện</summary>
@@ -199,7 +211,6 @@
 
         <!-- Content -->
         <div class="content">
-          <!-- Wrapper #cards: AJAX sẽ thay toàn bộ phần này -->
           <div id="cards">{% include "app/_cards.html" %}</div>
         </div>
       </div>

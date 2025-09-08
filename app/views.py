@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Club, TableType
+from django.db.models import Q
 import re
 
 # ============ Helpers ============
@@ -46,6 +47,18 @@ def is_in_price_band(max_price: int, band: str) -> bool:
 
 def home(request):
     clubs_queryset = Club.objects.all()
+    
+    # ---- TÌM KIẾM THEO VĂN BẢN ----
+    search_text = (request.GET.get('search_text') or '').strip()
+    if search_text:
+        clubs_queryset = clubs_queryset.filter(
+            Q(name__icontains=search_text) |
+            Q(district__icontains=search_text) |
+            Q(address__icontains=search_text) |
+            Q(table__icontains=search_text) |
+            Q(review__icontains=search_text) |
+            Q(price__icontains=search_text)
+        )
 
     # --- Đọc filters từ URL ---
     selected_districts   = request.GET.getlist('district')
@@ -137,8 +150,28 @@ def home(request):
         'price_band': selected_price_band,
         'rating_band': selected_rating_band,
         'per_page': per_page,
+        
+        # Trạng thái tìm kiếm để đổ lên ô search
+        'search_text': search_text,
     }
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return render(request, 'app/_cards.html', context)
     return render(request, 'app/home.html', context)
+
+def club_detail(request, club_id: int):
+    club = get_object_or_404(Club, pk=club_id)
+    # Lấy danh sách ảnh từ JSONField. Nếu trống thì fallback về ảnh đơn cũ.
+    image_urls = list(club.image_urls or [])
+    if not image_urls and getattr(club, "ImageURL", ""):
+        image_urls = [club.ImageURL]
+
+    context = {
+        "club": club,
+        "image_urls": image_urls,  # <- truyền xuống template để render slider
+    }
+
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return render(request, "app/_club_detail.html", context)
+
+    return render(request, "app/club_detail_page.html", context)

@@ -1,0 +1,56 @@
+<nav style="margin: 0 0 12px 0">
+  <a href="{% url 'home' %}" class="link-back-to-list" data-back="list">Home</a>
+  &nbsp;›&nbsp; <strong>{{ club.name }}</strong>
+</nav>
+
+<div class="card-content">
+  <div class="slider-wrapper">
+    <div class="slider">
+      {% if image_urls %} {% for url in image_urls %}
+      <img
+        id="slide-{{ forloop.counter }}"
+        src="{{ url }}"
+        alt="{{ club.name }} - ảnh {{ forloop.counter }}"
+      />
+      {% endfor %} {% else %} {# Fallback: chỉ có ảnh đơn cũ #}
+      <img id="slide-1" src="{{ club.ImageURL }}" alt="{{ club.name }}" /> {%
+      else %} {%endif%}
+    </div>
+    <div class="slider-nav">
+      {% if image_urls %} {% for url in image_urls %}
+      <a
+        href="#slide-{{ forloop.counter }}"
+        aria-label="Ảnh {{ forloop.counter }}"
+      ></a>
+      {% endfor %} {% else %}
+      <a href="#slide-1" aria-label="Ảnh 1"></a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="detail-content" style="font-size: 16px; line-height: 1.6">
+    <div class="address-detail">
+      <summary>Địa chỉ:</summary>
+      <a href="">{{club.address}}</a>
+    </div>
+    <div class="review">
+      <summary>Review:</summary>
+      <p>{{club.review}}</p>
+    </div>
+    <div class="price-detail">
+      <summary>Khoảng giá:</summary>
+      <p>{{club.price}}</p>
+    </div>
+    <div class="rate-detail">
+      <summary>Rate:</summary>
+      <p>{{club.rate}}⭐</p>
+    </div>
+    <div class="table-type-detail">
+      <summary>Loại bàn:</summary>
+      <p>{{club.table}}</p>
+    </div>
+    <div class="link-fb">
+      <summary>Link FB:</summary>
+      <a href="{{club.link}}">Vô đây!!!</a>
+    </div>
+  </div>
+</div>
