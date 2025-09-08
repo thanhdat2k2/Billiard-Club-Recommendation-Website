@@ -229,7 +229,6 @@ typer==0.9.4
 typing-inspect==0.9.0
 typing_extensions==4.12.2
 tzdata==2024.1
-ultralytics @ file:///D:/AIP491_G4/yolov8
 ultralytics-thop==2.0.14
 uri-template==1.3.0
 urllib3==1.26.12
