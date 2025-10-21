@@ -1,0 +1,208 @@
+:root {
+  --primary: #365d5d;
+  --surface: #fff;
+  --hover: #486e6e;
+}
+
+.hero-slider {
+  position: relative;
+  padding: 34px 200px 0 200px;
+}
+
+[data-track] {
+  display: flex;
+  aspect-ratio: 16/9;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+[data-track]::-webkit-scrollbar {
+  display: none;
+}
+
+[data-track] > * {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.slider-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.slider-nav .nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+.slider-nav .nav-dot.is-active {
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15) inset;
+}
+
+hr {
+  margin: 1.5rem 20rem 1rem 20rem;
+  border: 0;
+  height: 5px;
+  background-color: var(--primary);
+}
+
+h3 {
+  color: var(--primary);
+  display: flex;
+  justify-content: center;
+}
+
+.prominent-clubs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
+  justify-items: stretch;
+  gap: 12px;
+  padding: 12px 200px 32px 200px;
+}
+
+.prominent-clubs .card {
+  background: var(--primary);
+  border-radius: 12px;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--surface);
+}
+
+.prominent-clubs .card .thumb {
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.prominent-clubs .card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prominent-clubs .name-club {
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* PC - Desktop */
+@media (min-width: 1024px) {
+  .prominent-clubs {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+/* ========== Tablet (740px–1023px) ========== */
+@media (min-width: 740px) and (max-width: 1023px) {
+  /* Slider vừa màn hình hơn, bớt padding hai bên */
+  .hero-slider {
+    padding: 24px 48px 0 48px;   /* trước là 34px 150px */
+  }
+
+  /* Dấu gạch phân cách bớt “dày”, chừa mép vừa phải */
+  hr {
+    margin: 16px 200px 12px 200px; /* trước là 1.5rem 20rem 1rem 20rem */
+  }
+
+  /* Lưới “Quán nổi bật”: 2 cột gọn gàng, có lề trái/phải */
+  .prominent-clubs {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 cột cố định */
+    gap: 12px;
+    padding: 12px 32px 28px 32px;                     /* chừa mép hai bên */
+  }
+
+  /* Card thu gọn, bám theo lưới – không full-bleed */
+  .prominent-clubs .card {
+    width: 100%;
+    margin: 0;
+    border-radius: 12px;
+  }
+
+  .prominent-clubs .card .thumb { border-radius: 12px; }
+
+  .prominent-clubs .card .thumb img {
+    width: 100%;
+    height: auto;      /* giữ đúng tỉ lệ ảnh */
+    object-fit: cover;
+  }
+}
+
+
+@media (max-width: 739px) {
+
+  /* Slider full-bleed, cao auto theo ảnh */
+  .hero-slider {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);  /* kéo ra full màn hình dù parent có padding */
+    padding: 0;                    /* bỏ padding 34px 200px… ở mobile */
+  }
+
+  [data-track] {
+    border-radius: 0;
+    gap: 0;
+  }
+
+  /* Mỗi slide chiếm trọn chiều rộng màn hình; cao auto */
+  [data-track] > * {
+    flex: 0 0 100vw;
+    width: 100vw;
+    aspect-ratio: auto;            /* override aspect-ratio:16/9 */
+    height: auto;                  /* để ảnh quyết định chiều cao */
+    object-fit: cover;
+  }
+
+  /* Dots vẫn canh giữa đáy slider */
+  .slider-nav {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+  }
+
+  hr {
+    margin: 16px 100px 12px 100px; /* trước là 1.5rem 20rem 1rem 20rem */
+  }
+  /* “Các quán nổi bật” 1 cột full màn hình */
+  .prominent-clubs {
+    grid-template-columns: 1fr;    /* 1 cột */
+    padding: 12px 16px 32px;   /* trước là 0 -> nay chừa mép 16px */
+    gap: 12px;      
+  }
+
+  .prominent-clubs .card {
+    width: 100%;                  /* full màn hình */
+    margin: 0;
+    border-radius: 12px;
+  }
+
+  .prominent-clubs .card .thumb {
+    border-radius: 12px;
+  }
+
+  .prominent-clubs .card .thumb img {
+    width: 100%;
+    height: auto;                  /* cao auto theo ảnh */
+    object-fit: cover;
+  }
+}
+

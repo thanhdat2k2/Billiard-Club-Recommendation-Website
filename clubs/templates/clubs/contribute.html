@@ -1,0 +1,115 @@
+{% extends "clubs/base.html" %}
+{% load static %}
+
+{% block main %}
+<link rel="stylesheet" href="{% static 'clubs/css/contribute.css' %}">
+
+<div class="contrib-container">
+  <h2 class="contrib-title">Đóng góp câu lạc bộ</h2>
+
+  {% if messages %}
+    <ul class="contrib-messages">
+      {% for m in messages %}
+        <li class="contrib-message {{ m.tags }}">{{ m }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data" class="contribute-form">
+    {% csrf_token %}
+
+    <div>
+      <label for="name"><strong>Tên câu lạc bộ *</strong></label>
+      <input id="name" name="name" type="text" value="{{ form.name }}" required class="review-input" />
+      {% if errors.name %}<div class="error">{{ errors.name }}</div>{% endif %}
+    </div>
+
+    <div class="form-row-2">
+      <div>
+        <label for="type_district"><strong>Khu vực *</strong></label>
+        <select id="type_district" name="type_district" class="review-input">
+          <option value="nội thành" {% if form.type_district == "nội thành" %}selected{% endif %}>Nội thành</option>
+          <option value="ngoại thành" {% if form.type_district == "ngoại thành" %}selected{% endif %}>Ngoại thành</option>
+        </select>
+        {% if errors.type_district %}<div class="error">{{ errors.type_district }}</div>{% endif %}
+      </div>
+      <div>
+        <label for="district"><strong>Quận/Huyện</strong></label>
+        <input id="district" name="district" type="text" value="{{ form.district }}" class="review-input" />
+      </div>
+    </div>
+
+    <div>
+      <label for="address"><strong>Địa chỉ</strong></label>
+      <input id="address" name="address" type="text" value="{{ form.address }}" class="review-input" />
+    </div>
+
+    <div class="form-row-2">
+      <div>
+        <label for="price"><strong>Mức giá (ví dụ: 40k - 60k)</strong></label>
+        <input id="price" name="price" type="text" value="{{ form.price }}" class="review-input" />
+      </div>
+      <div>
+        <label for="table"><strong>Loại bàn (ví dụ: Mr Sung, Alieex)</strong></label>
+        <input id="table" name="table" type="text" value="{{ form.table }}" class="review-input" />
+      </div>
+    </div>
+
+    <div>
+      <label for="note"><strong>Ghi chú</strong></label>
+      <textarea id="note" name="note" rows="3" class="review-textarea" placeholder="Thông tin bổ sung (giờ mở cửa, bãi gửi xe, vv.)">{{ form.note }}</textarea>
+    </div>
+
+    <div>
+      <label for="image_thumb"><strong>Ảnh đại diện (tuỳ chọn)</strong></label>
+      <input id="image_thumb" name="image_thumb" type="file" accept=".jpg,.jpeg,.png,.webp" />
+    </div>
+
+    <button type="submit" class="review-submit">Gửi đề xuất</button>
+  </form>
+
+  <hr class="contrib-divider" />
+
+  <h3 class="contrib-subtitle">Đề xuất mới nhất</h3>
+
+  <div class="contrib-cards" style="margin-bottom: 32px; padding: 0 16px">
+    {% for it in proposed_clubs %}
+      <div class="card">
+        <div class="thumb">
+          {% if it.image_thumb %}
+            <img src="{{ it.image_thumb.url }}" alt="{{ it.name }}" loading="lazy" decoding="async" />
+          {% else %}
+            <img src="{% static 'clubs/images/placeholder.jpg' %}" alt="No image" />
+          {% endif %}
+        </div>
+        <div class="name-club">{{ it.name }}</div>
+        <div class="meta-info" style="margin-top: 6px">
+            <span style="font-weight: 600">&#8226; Mức giá:</span> {{ it.price }}<br>
+            <span style="font-weight: 600">&#8226; Địa chỉ:</span> {{it.address}}<br>
+            <span style="font-weight: 600">&#8226; Note:</span> {{it.note}}
+        </div>
+      </div>
+    {% empty %}
+      <p style="padding: 16px">Chưa có đề xuất nào.</p>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="contrib-pagination" aria-label="Pagination">
+    {% if page_obj.has_previous %}
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">« Trước</a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if num == page_obj.number %}
+        <span class="page-current">{{ num }}</span>
+      {% else %}
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Sau »</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

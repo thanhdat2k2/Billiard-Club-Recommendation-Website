@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font-Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'clubs/css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'clubs/css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'clubs/css/clubs.css' %}" />
+    <link rel="stylesheet" href="{% static 'clubs/css/club-detail.css' %}" />
+    <link rel="stylesheet" href="{% static 'clubs/css/review.css' %}" />
+    <link rel="stylesheet" href="{% static 'clubs/css/contribute.css' %}" />
+
+    <title>Billiards Hub</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Header -->
+      <div class="header">
+        <a href="{% url 'home' %}" class="logo" id="logo">
+          <img src="{% static 'clubs/images/logo.png' %}" alt="Billiards Hub" />
+          <span>Billiards Hub</span>
+        </a>
+        <i
+          class="fa-solid fa-bars"
+          id="menu-icon"
+          aria-controls="navbar"
+          aria-expanded="false"
+        ></i>
+        <ul class="navbar" id="navbar">
+          <li>
+            <a href="{% url 'inner-city-clubs' %}" alt="Bi-a Nội thành"
+              >Bi-a Nội Thành</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'suburban-clubs' %}" alt="Bi-a Ngoại thành"
+              >Bi-a Ngoại Thành</a
+            >
+          </li>
+          <li><a href="{% url 'contribute' %}" alt="Đóng góp">Đóng góp</a></li>
+        </ul>
+      </div>
+
+      <!-- Main -->
+      <div class="main">{% block main %}{% endblock %}</div>
+      <!-- Footer -->
+      <div class="footer">
+        <p class="copyright">&copy; Billiards Hub - All Rights Reserved</p>
+      </div>
+    </div>
+  </body>
+  <script src="{% static 'clubs/js/base.js' %}" defer></script>
+  <script src="{% static 'clubs/js/slider.js' %}" defer></script>
+  <script src="{% static 'clubs/js/filter.js' %}" defer></script>
+</html>

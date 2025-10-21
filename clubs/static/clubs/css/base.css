@@ -1,0 +1,151 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+:root {
+  --primary: #365d5d;
+  --surface: #fff;
+  --hover: #486e6e;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding-top: 68px;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  width: 100%;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 150px;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--surface);
+  font-size: 1.5rem;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.logo img {
+  height: 3rem;
+}
+
+.navbar {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar a {
+  text-decoration: none;
+  color: var(--surface);
+  font-weight: 500;
+  line-height: 68px;
+  padding: 0 2rem;
+  display: inline-block;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  background-color: var(--hover);
+}
+
+/* Main */
+.main {
+  flex: 1 1 auto;
+}
+
+/* Footer */
+.footer {
+  height: 3rem;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--surface);
+}
+
+/* Responsive*/
+/* PC - Desktop */
+@media (min-width: 1024px) {
+  #menu-icon {
+    display: none;
+  }
+}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+  .header {
+    padding: 0 60px;
+  }
+  .logo {
+    font-size: 1.3rem;
+  }
+  #menu-icon {
+    display: none;
+  }
+  .navbar {
+    height: 68px;
+  }
+  .navbar a {
+    padding: 0 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 740px) {
+  .header {
+    height: 78px;
+    padding: 0 20px;
+  }
+  .logo {
+    font-size: 1.8rem;
+  }
+  .logo img {
+    height: 4rem;
+  }
+  #menu-icon {
+    color: var(--surface);
+    margin-top: 5px;
+    font-size: 1.8rem;
+    display: block;
+  }
+  .navbar {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    width: auto;
+    height: auto;
+    display: none;
+    flex-direction: column;
+    background-color: var(--primary);
+    transition: all 0.5s ease;
+  }
+  .navbar.active {
+    display: flex;
+  }
+  .navbar a {
+    padding: 0 1rem;
+  }
+}

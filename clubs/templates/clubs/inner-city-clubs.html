@@ -1,0 +1,256 @@
+{% extends "clubs/base.html" %} {% load static %} {% block main %}
+<div class="breadcrumb" id="breadcrumb">
+  <a href="{% url 'home' %}">Trang chủ</a>
+  <span> > </span>
+  <a href="{% url 'inner-city-clubs' %}">Bi-a Nội Thành</a>
+</div>
+
+<div class="refiner">
+  <div class="refiner-filters">
+    <!-- Quận/Huyện -->
+    <div class="dropdown" data-dropdown>
+      <button
+        class="chip"
+        data-toggle
+        aria-haspopup="menu"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-location-dot" style="font-size: 12px"></i>
+        <span class="label" style="font-size: 12px">Quận / Huyện</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 12px"></i>
+      </button>
+      <div class="menu" role="menu" hidden>
+        {% for district in district_options %}
+        <label class="checkbox">
+          <input
+            type="checkbox"
+            name="district"
+            value="{{ district }}"
+            {%
+            if
+            district
+            in
+            selected_districts
+            %}checked{%
+            endif
+            %}
+          />
+          <p>{{ district }}</p>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Mức giá -->
+    <div class="dropdown" data-dropdown>
+      <button
+        class="chip"
+        data-toggle
+        aria-haspopup="menu"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-coins" style="font-size: 12px"></i>
+        <span class="label" style="font-size: 12px">Mức giá</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 12px"></i>
+      </button>
+      <div class="menu" role="menu" hidden>
+        <input
+          type="hidden"
+          name="price_band"
+          id="priceBandInput"
+          value="{{ price_band|default:'' }}"
+        />
+        <button type="button" class="sub-chip" data-value="30-60">
+          30k - 60k
+        </button>
+        <button type="button" class="sub-chip" data-value="60-80">
+          60k – 80k
+        </button>
+        <button type="button" class="sub-chip" data-value=">80">
+          Trên 80k
+        </button>
+        <button type="button" class="sub-chip" data-value="">Tất cả</button>
+      </div>
+    </div>
+
+    <!-- Loại bàn -->
+    <div class="dropdown" data-dropdown>
+      <button
+        class="chip"
+        data-toggle
+        aria-haspopup="menu"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-table" style="font-size: 12px"></i>
+        <span class="label" style="font-size: 12px">Loại bàn</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 12px"></i>
+      </button>
+      <div class="menu" role="menu" hidden>
+        {% for table_type_name in table_types %}
+        <label class="checkbox">
+          <input
+            type="checkbox"
+            name="table_type"
+            value="{{ table_type_name }}"
+            {%
+            if
+            table_type_name
+            in
+            selected_types
+            %}checked{%
+            endif
+            %}
+          />
+          {{ table_type_name }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Đánh giá -->
+    <div class="dropdown" data-dropdown>
+      <button
+        class="chip"
+        data-toggle
+        aria-haspopup="menu"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-star" style="font-size: 12px"></i>
+        <span class="label" style="font-size: 12px">Đánh giá</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 12px"></i>
+      </button>
+      <div class="menu" role="menu" hidden>
+        {% for rate in rating_band_options %}
+        <label class="radio">
+          <input
+            type="radio"
+            name="rating_band"
+            value="{{ rate.value }}"
+            {{
+            rate.checked
+            }}
+          />
+          {{ rate.label }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="refiner-sort">
+    <div class="dropdown" data-dropdown>
+      <button
+        class="chip chip--ghost"
+        data-toggle
+        aria-haspopup="menu"
+        aria-expanded="false"
+      >
+        <span class="label">Sắp xếp &#40; Mặc định &#41;</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+
+      <div class="menu" role="menu" hidden>
+        <!-- giữ giá trị sort hiện tại -->
+        <input
+          type="hidden"
+          name="sort"
+          id="sortInput"
+          value="{{ request.GET.sort|default:'' }}"
+        />
+
+        <!-- Các lựa chọn là button -->
+        <button type="button" class="sort-btn sub-chip" data-sort="">
+          Sắp xếp &#40; Mặc định &#41;
+        </button>
+
+        <button type="button" class="sort-btn sub-chip" data-sort="rate_desc">
+          Đánh giá: cao → thấp
+        </button>
+
+        <button type="button" class="sort-btn sub-chip" data-sort="rate_asc">
+          Đánh giá: thấp → cao
+        </button>
+
+        <button type="button" class="sort-btn sub-chip" data-sort="name_asc">
+          Tên: A → Z
+        </button>
+
+        <button type="button" class="sort-btn sub-chip" data-sort="name_desc">
+          Tên: Z → A
+        </button>
+
+        <button type="button" class="sort-btn sub-chip" data-sort="price_asc">
+          Giá: thấp → cao
+        </button>
+
+        <button type="button" class="sort-btn sub-chip" data-sort="price_desc">
+          Giá: cao → thấp
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list-clubs">
+  {% with request.get_full_path as back_url %}
+    {% for club in inner_city_clubs %}
+      <a href="{% url 'club-detail' club.id %}?src=inner&return={{ back_url|urlencode }}"
+         class="card card-link">
+        <div class="thumb">
+          {% if club.image_thumb %}
+            <img src="{{ club.image_thumb.url }}" alt="{{ club.name }}" loading="lazy" decoding="async" />
+          {% else %}
+            <img src="{% static 'clubs/images/placeholder.jpg' %}" alt="No image" />
+          {% endif %}
+        </div>
+
+        <div class="name-club" style="font-weight: 700; margin-left: 10px; margin-top: 5px">
+          {{ club.name }}
+        </div>
+        <div class="meta-info" style="font-size: 15px; margin-left: 10px">
+          {{ club.district }} &nbsp; <strong>·</strong> &nbsp; {{ club.price }}
+          &nbsp; <strong>·</strong> &nbsp; {{ club.rate }} ⭐
+        </div>
+      </a>
+    {% empty %}
+      <p>Chưa có câu lạc bộ phù hợp.</p>
+    {% endfor %}
+  {% endwith %}
+</div>
+
+{% if paginator.num_pages > 1 %} {% with q=request.GET.urlencode %}
+<nav class="pagination" aria-label="Kết quả">
+  {# Prev #} {% if page_obj.has_previous %}
+  <a
+    href="?{% if q %}{{ q }}&{% endif %}page={{ page_obj.previous_page_number }}"
+    class="page-link"
+    data-page="{{ page_obj.previous_page_number }}"
+    aria-label="Trang trước"
+    >&laquo;</a
+  >
+  {% else %}
+  <span class="page-link disabled" aria-disabled="true">&laquo;</span>
+  {% endif %} {# Pages #} {% for p in page_range %} {% if p == '…' %}
+  <span class="page-ellipsis">…</span>
+  {% elif p == page_obj.number %}
+  <span class="page-link active" aria-current="true">{{ p }}</span>
+  {% else %}
+  <a
+    href="?{% if q %}{{ q }}&{% endif %}page={{ p }}"
+    class="page-link"
+    data-page="{{ p }}"
+    >{{ p }}</a
+  >
+  {% endif %} {% endfor %} {# Next #} {% if page_obj.has_next %}
+  <a
+    href="?{% if q %}{{ q }}&{% endif %}page={{ page_obj.next_page_number }}"
+    class="page-link"
+    data-page="{{ page_obj.next_page_number }}"
+    aria-label="Trang sau"
+    >&raquo;</a
+  >
+  {% else %}
+  <span class="page-link disabled" aria-disabled="true">&raquo;</span>
+  {% endif %}
+</nav>
+{% endwith %} {% endif %}{% endblock %}

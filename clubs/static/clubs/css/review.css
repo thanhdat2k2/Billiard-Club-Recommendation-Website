@@ -1,0 +1,154 @@
+:root {
+    --primary: #365d5d;
+    --surface: #fff;
+    --hover: #486e6e;
+  }
+
+/* ===== Review Section ===== */
+.reviews {
+  margin-top: 24px;
+  padding: 0px 200px 0px 200px; 
+}
+
+.reviews__title {
+  margin-bottom: 12px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+/* --- Form --- */
+.review-form {
+  background: #f6faf9;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.review-form__grid {
+  gap: 12px;
+  align-items: end;
+}
+
+.review-form__field {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.review-form label {
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.review-input,
+.review-textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cdd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.review-input:focus,
+.review-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(54, 93, 93, 0.12);
+}
+
+.review-rating {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.review-rating label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+
+.review-submit {
+  margin-top: 12px;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--surface);
+  border: none;
+  cursor: pointer;
+}
+
+.review-submit:hover {
+  filter: brightness(0.95);
+}
+
+/* --- List --- */
+.reviews-list {
+  list-style: none;
+  padding: 16px;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.review-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--surface);
+}
+
+.review-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-card__name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.review-card__rating {
+    color: var(--primary);
+  font-weight: 600;
+}
+
+.review-card__comment {
+  margin: 0.5rem 0 0 0;
+  white-space: pre-wrap;
+  color: #111827;
+}
+
+.review-card__date {
+  margin-top: 6px;
+  color: #667085;
+  font-size: 12px;
+}
+
+/* --- Pagination for reviews --- */
+.reviews-pagination {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reviews-pagination .page-link,
+.reviews-pagination .page-current {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  text-decoration: none;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+.reviews-pagination .page-current {
+  font-weight: 600;
+  background: #f3f4f6;
+}

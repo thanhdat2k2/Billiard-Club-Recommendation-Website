@@ -1,0 +1,165 @@
+/* ===== Contribute page (namespaced) ===== */
+.contrib-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* căn giữa theo ngang */
+  }
+  
+  /* Title */
+  .contrib-title{
+    color: var(--primary);
+    margin: 12px 0;
+  }
+  
+  /* Flash messages */
+  .contrib-messages{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    max-width: 720px;
+  }
+  .contrib-message{
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #f3f4f6;
+  }
+  .contrib-message.success{ background:#e7f6ec; }
+  .contrib-message.error  { background:#fde9ea; }
+  
+  /* ----- Form ----- */
+  .contribute-form{
+    display: grid;
+    gap: 12px;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;      /* căn giữa ngang */
+  }
+  
+  /* 2 cột */
+  .form-row-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  /* Inputs trong form */
+  .review-input,
+  .review-textarea,
+  .contribute-form select{
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+  }
+  .review-textarea{
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .contribute-form .error{
+    color: #c2410c;
+    font-size: .95rem;
+  }
+  
+  .review-submit{
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: var(--primary);
+    color: var(--surface);
+    cursor: pointer;
+  }
+  
+  /* Divider */
+  .contrib-divider{
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background: #e5e7eb;
+    width: 100%;
+    max-width: 960px;
+  }
+  
+  /* Subtitle */
+  .contrib-subtitle{
+    color: var(--primary);
+    margin-bottom: 12px;
+    width: 100%;
+    max-width: 960px;
+  }
+  
+  /* ----- Cards grid (không đụng trang khác) ----- */
+  .contrib-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    align-items: start;
+    gap: 12px;
+    width: 100%;
+    max-width: 960px;
+  }
+  
+  /* Vì HTML đang dùng .card/.thumb/.name-club/.meta-info */
+  .contrib-cards .card{
+    background: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    color: var(--surface);
+  }
+  .contrib-cards .card .thumb{
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .contrib-cards .card .thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .contrib-cards .card .name-club{
+    margin-top: 6px;
+    font-weight: 700;
+  }
+  .contrib-cards .card .meta-info{
+    opacity: .95;
+  }
+  
+  /* Pagination */
+  .contrib-pagination{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 960px;
+  }
+  .contrib-pagination .page-link,
+  .contrib-pagination .page-current{
+    padding: 6px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    background: #eef2f7;
+    color: #111827;
+  }
+  .contrib-pagination .page-current{
+    background: var(--primary);
+    color: var(--surface);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px){
+    .form-row-2{ grid-template-columns: 1fr; }
+    .contribute-form{ padding: 0 16px; }
+  }
+
+  @media (max-width: 320px){
+    #logo span{ font-size: 20px}
+  }
+  

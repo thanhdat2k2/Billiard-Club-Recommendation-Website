@@ -1,0 +1,62 @@
+{% extends "clubs/base.html" %} {% load static %} {% block main %}
+<div class="hero-slider" id="hero-slider" data-slider data-interval="4000">
+  <div class="hero-track" id="hero-track" data-track>
+    {% for slide in slides %}
+    <img
+      class="slide"
+      src="{{ slide.image_url }}"
+      alt="{{ slide.alt_text }}"
+      {%
+      if
+      forloop.first
+      %}fetchpriority="high"
+      {%
+      else
+      %}loading="lazy"
+      decoding="async"
+      {%
+      endif
+      %}
+    />
+    {% endfor %}
+  </div>
+
+  <div class="slider-nav" data-nav>
+    {% for slide in slides %}
+    <button
+      type="button"
+      class="nav-dot{% if forloop.first %} is-active{% endif %}"
+      data-index="{{ forloop.counter0 }}"
+      aria-label="Tới slide {{ forloop.counter }}"
+    ></button>
+    {% endfor %}
+  </div>
+</div>
+
+<hr />
+<h3>CÁC QUÁN NỔI BẬT</h3>
+<div class="prominent-clubs" id="prominent-clubs">
+  {% for top_club in top_clubs %}
+  <a href="{% url 'club-detail' top_club.id %}?src=home" class="card card-link">
+    <div class="thumb">
+      {% if top_club.image_thumb %}
+      <img
+        src="{{ top_club.image_thumb.url }}"
+        alt="{{ top_club.name }}"
+        loading="lazy"
+        decoding="async"
+      />
+      {% else %}
+      <img src="{% static 'clubs/images/placeholder.jpg' %}" alt="No image" />
+      {% endif %}
+    </div>
+    <div class="name-club" style="margin-left: 10px">{{top_club.name}}</div>
+    <div class="meta-info" style="font-size: 15px; margin-left: 10px">
+      {{top_club.district}} &nbsp; <strong>·</strong> &nbsp; {{top_club.price}}
+      &nbsp; <strong>·</strong> &nbsp; {{top_club.rate}} ⭐
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+{% endblock %}

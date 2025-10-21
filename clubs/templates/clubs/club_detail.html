@@ -1,0 +1,228 @@
+{% extends "clubs/base.html" %} {% load static %} {% load tz %} {% block main %}
+
+<!-- BREADCRUMB + BACK -->
+<nav class="breadcrumb" id="breadcrumb-club" aria-label="Breadcrumb" style="margin-bottom: 16px">
+    <a href="{% url 'home' %}">Trang chủ</a>
+    <span>›</span>
+  
+    {# --- Nếu có back_to: dùng link này để quay lại đúng URL có filter --- #}
+    {% if back_to %}
+      {% if source == 'inner' %}
+        <a href="{{ back_to }}" class="js-breadcrumb-list">Bi-a Nội thành</a>
+        <span>›</span>
+        <span aria-current="page">{{ club.name }}</span>
+  
+      {% elif source == 'suburban' %}
+        <a href="{{ back_to }}" class="js-breadcrumb-list">Bi-a Ngoại thành</a>
+        <span>›</span>
+        <span aria-current="page">{{ club.name }}</span>
+  
+      {% elif source == 'home' %}
+        {# Từ Home: breadcrumb mong muốn là Trang chủ › Tên club (không có “Danh sách”) #}
+        <span aria-current="page">{{ club.name }}</span>
+  
+      {% else %}
+        {# Không có source rõ ràng: chỉ hiển thị tên club #}
+        <span aria-current="page">{{ club.name }}</span>
+      {% endif %}
+  
+    {# --- Không có back_to: fallback như trước (không giữ filter) --- #}
+    {% else %}
+      {% if source == 'home' %}
+        <span aria-current="page">{{ club.name }}</span>
+  
+      {% elif source == 'inner' or club.type_district|lower == 'nội thành' %}
+        <a href="{% url 'inner-city-clubs' %}">Bi-a Nội thành</a>
+        <span>›</span>
+        <span aria-current="page">{{ club.name }}</span>
+  
+      {% elif source == 'suburban' or club.type_district|lower == 'ngoại thành' %}
+        <a href="{% url 'suburban-clubs' %}">Bi-a Ngoại thành</a>
+        <span>›</span>
+        <span aria-current="page">{{ club.name }}</span>
+  
+      {% else %}
+        <span aria-current="page">{{ club.name }}</span>
+      {% endif %}
+    {% endif %}
+  
+    {# Nút "Quay lại" (ưu tiên back_to; nếu không có thì fallback theo source) #}
+    <a class="btn js-back-to-list" style="margin-left: auto"
+       href="{% if back_to %}{{ back_to }}
+              {% elif source == 'inner' %}{% url 'inner-city-clubs' %}
+              {% elif source == 'suburban' %}{% url 'suburban-clubs' %}
+              {% else %}{% url 'home' %}{% endif %}">
+      ← Quay lại
+    </a>
+  </nav>
+  
+<div id="content-detail">
+  <div class="hero-slider" id="club-slider" data-slider data-interval="4000">
+    <div class="hero-track" id="club-track" data-track>
+      {% for slide in gallery_images %}
+      <img
+        class="slide"
+        src="{{ slide.image.url }}"
+        alt="{{ club.name }}"
+        {%
+        if
+        forloop.first
+        %}fetchpriority="high"
+        {%
+        else
+        %}loading="lazy"
+        decoding="async"
+        {%
+        endif
+        %}
+      />
+      {% endfor %}
+    </div>
+
+    <div class="slider-nav" data-nav>
+      {% for slide in gallery_images %}
+      <button
+        type="button"
+        class="nav-dot{% if forloop.first %} is-active{% endif %}"
+        data-index="{{ forloop.counter0 }}"
+        aria-label="Tới slide {{ forloop.counter }}"
+      ></button>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="info-detail" style="padding: 0 440px 0 440px">
+    <div class="address-detail">
+      <summary>Địa chỉ:</summary>
+      <a href="">{{club.address}}</a>
+    </div>
+    <div class="price-detail">
+      <summary>Khoảng giá:</summary>
+      <p>{{club.price}}</p>
+    </div>
+    <div class="table-type-detail">
+      <summary>Loại bàn:</summary>
+      <p>{{club.table}}</p>
+    </div>
+    <div class="rate-detail">
+      <summary>Rate:</summary>
+      <p>{{club.rate}}⭐</p>
+    </div>
+    <div class="review">
+      <summary>Nhận xét:</summary>
+      <p>{{club.review}}</p>
+    </div>
+    <div class="link-fb">
+      <summary>Link FB:</summary>
+      <a href="{{club.link}}">Vô đây!!!</a>
+    </div>
+  </div>
+</div>
+<hr style="margin: 24px 0; border: 0; height: 1px; background: #e5e7eb" />
+
+<section id="reviews" class="reviews">
+    <h3 class="reviews__title">Đánh giá & Review ({{ reviews_total }})</h3>
+  
+    {# =================== FORM REVIEW =================== #}
+    <form method="post" action="{% url 'club-review' club.pk %}" class="review-form">
+      {% csrf_token %}
+  
+      <div class="review-form__grid">
+        <div class="review-form__field">
+          <label for="reviewer_name">Tên của bạn (tuỳ chọn)</label>
+          <input
+            id="reviewer_name"
+            name="reviewer_name"
+            type="text"
+            placeholder="Ẩn danh nếu bỏ trống"
+            class="review-input"
+          />
+        </div>
+  
+        <div class="review-form__field">
+          <label>Đánh giá (1–5)</label>
+          <div class="review-rating">
+            {% for _ in "12345" %}
+              <label>
+                <input
+                  type="radio"
+                  name="rating"
+                  value="{{ forloop.counter }}"
+                  required
+                />
+                <span>{{ forloop.counter }} ⭐</span>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+  
+      <div class="review-form__field" style="margin-top: 10px">
+        <label for="comment">Nội dung</label>
+        <textarea
+          id="comment"
+          name="comment"
+          rows="3"
+          maxlength="2000"
+          placeholder="Chia sẻ trải nghiệm của bạn..."
+          class="review-textarea"
+        ></textarea>
+      </div>
+  
+      <button type="submit" class="review-submit">Gửi review</button>
+    </form>
+  
+    {# =================== DANH SÁCH REVIEW =================== #}
+    {% if review_page.object_list %}
+      <ul class="reviews-list">
+        {% for rv in review_page.object_list %}
+          <li class="review-card">
+            <div class="review-card__top">
+              <strong class="review-card__name">{{ rv.reviewer_name }}</strong>
+              <span class="review-card__rating">{{ rv.rating }} ⭐</span>
+            </div>
+  
+            {% if rv.comment %}
+              <p class="review-card__comment">{{ rv.comment }}</p>
+            {% endif %}
+  
+            <div class="review-card__date">
+              {{ rv.created_at|date:"d/m/Y H:i" }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+  
+      {% if review_page.paginator.num_pages > 1 %}
+        <nav class="reviews-pagination" aria-label="Review pagination">
+  
+          {% if review_page.has_previous %}
+            <a
+              class="page-link"
+              href="?rpage={{ review_page.previous_page_number }}#reviews"
+            >« Trước</a>
+          {% endif %}
+  
+          {% for num in review_page.paginator.page_range %}
+            {% if num == review_page.number %}
+              <span class="page-current">{{ num }}</span>
+            {% else %}
+              <a class="page-link" href="?rpage={{ num }}#reviews">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+  
+          {% if review_page.has_next %}
+            <a
+              class="page-link"
+              href="?rpage={{ review_page.next_page_number }}#reviews"
+            >Sau »</a>
+          {% endif %}
+  
+        </nav>
+      {% endif %}
+    {% else %}
+      <p style="padding: 16px">Chưa có review nào. Hãy là người đầu tiên!</p>
+    {% endif %}
+  </section>
+  
+
+{% endblock %}
