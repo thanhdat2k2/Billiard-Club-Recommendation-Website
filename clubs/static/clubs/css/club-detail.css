@@ -11,7 +11,9 @@
 }
 
 /* Slider */
-#club-slider { position: relative; }
+#club-slider {
+  position: relative;
+}
 #club-slider [data-track] {
   border-radius: 12px;
   overflow: hidden;
@@ -47,13 +49,17 @@
 .link-fb {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;       /* không bị vỡ khi hẹp */
+  flex-wrap: wrap; /* không bị vỡ khi hẹp */
   gap: 8px 10px;
 }
-#info-detail summary { font-weight: 700; }
+#info-detail summary {
+  font-weight: 700;
+}
 
 /* Reviews (khung + form) */
-.reviews { padding: 0 320px; }
+.reviews {
+  padding: 0 320px;
+}
 .review-form__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -69,9 +75,16 @@
     padding: 32px 10px 16px 10px;
   }
 
+  #club-slider [data-track] {
+    border-radius: 0;
+  }
   /* Info + Reviews cùng mép với slider */
-  #info-detail { padding: 0 16px !important; }
-  #reviews     { padding: 0 16px; }
+  #info-detail {
+    padding: 0 16px !important;
+  }
+  #reviews {
+    padding: 0 16px;
+  }
 
   .reviews__title {
     padding: 0 2px;
@@ -89,9 +102,11 @@
     background: #f8fafc;
   }
   .review-form__grid {
-    display: block;       /* 1 cột trên mobile */
+    display: block; /* 1 cột trên mobile */
   }
-  .review-form__field { margin-bottom: 10px; }
+  .review-form__field {
+    margin-bottom: 10px;
+  }
   .review-input,
   .review-textarea {
     width: 100%;
@@ -121,7 +136,10 @@
   }
 
   /* Card review gọn gàng */
-  .reviews-list { display: grid; gap: 10px; }
+  .reviews-list {
+    display: grid;
+    gap: 10px;
+  }
   .review-card {
     background: #f8fafc;
     border-radius: 12px;
@@ -134,26 +152,42 @@
     gap: 8px;
     margin-bottom: 4px;
   }
-  .review-card__name { font-weight: 600; }
-  .review-card__comment { margin: 6px 0; }
-  .review-card__date { opacity: .8; font-size: .9rem; }
+  .review-card__name {
+    font-weight: 600;
+  }
+  .review-card__comment {
+    margin: 6px 0;
+  }
+  .review-card__date {
+    opacity: 0.8;
+    font-size: 0.9rem;
+  }
 }
-
 
 /* =============================== */
 /*             TABLET              */
 /*         600px – 1199px          */
 /* =============================== */
 @media (min-width: 600px) and (max-width: 1199px) {
-  #breadcrumb-club { padding: 20px 80px 12px; }
+  #breadcrumb-club {
+    padding: 20px 80px 12px;
+  }
 
   /* Slider & khối nội dung thu nhỏ padding 2 bên */
-  #club-slider { padding: 0 120px; }
-  #info-detail { padding: 0 120px !important; }
-  #reviews     { padding: 0 50px; }
+  #club-slider {
+    padding: 0 120px;
+  }
+  #info-detail {
+    padding: 0 120px !important;
+  }
+  #reviews {
+    padding: 0 50px;
+  }
 
   /* Form review vẫn 2 cột ok trên tablet */
-  .review-form__grid { grid-template-columns: 1fr 1fr; }
+  .review-form__grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* =============================== */
@@ -161,15 +195,29 @@
 /*            ≥ 1200px             */
 /* =============================== */
 @media (min-width: 1200px) {
-  #breadcrumb-club { padding: 32px 200px 16px; }
-  #club-slider { padding: 0 200px; }
-  #info-detail { padding: 0 200px !important; }
-  .reviews     { padding: 0 200px; }
+  #breadcrumb-club {
+    padding: 32px 200px 16px;
+  }
+  #club-slider {
+    padding: 0 200px;
+  }
+  #info-detail {
+    padding: 0 200px !important;
+  }
+  .reviews {
+    padding: 0 200px;
+  }
 }
 
 /* (tuỳ chọn) Desktop rất rộng ≥ 1440px: mở rộng biên */
 @media (min-width: 1440px) {
-  #club-slider { padding: 0 320px; }
-  #info-detail { padding: 0 320px !important; }
-  .reviews     { padding: 0 320px; }
+  #club-slider {
+    padding: 0 320px;
+  }
+  #info-detail {
+    padding: 0 320px !important;
+  }
+  .reviews {
+    padding: 0 320px;
+  }
 }
