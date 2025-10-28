@@ -1,0 +1,40 @@
+﻿[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xQFlIK2pAyiYleopYgcKla$lcXPzLNxgGdDE3WdEQp4GSLqGcBbvdlOXCdq12+BPbE=",
+        "last_login": "2025-10-21T09:39:34.859Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "thanhdat2k2.810@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-09-19T08:03:52.361Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "t7nxakq7ngn30j5exi7ykedl45nsokjm",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSE8C-PSvd9AhgGkaiAp7cr479qkC93ec859sYDbWsM28hLmxM5MstPvFpEeue0g3bHdOqfe1mWOfFf4QQe_9pSfl8P9O6g46rcmECpaBcKTLwoQtTCTQlmMwQxZgkggrIvKy-i0RJ0xWueKk0STd569P8pZN0M:1uzW6Q:OFi0YiYj5OPDTgWyicLHZzkBR7ltnxZ55gyL4LpqADQ",
+        "expire_date": "2025-10-03T08:04:22.961Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "x1htam7th9gxyqbxonc0ewgill5s1318",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSE8C-PSvd9AhgGkaiAp7cr479qkC93ec859sYDbWsM28hLmxM5MstPvFpEeue0g3bHdOqfe1mWOfFf4QQe_9pSfl8P9O6g46rcmECpaBcKTLwoQtTCTQlmMwQxZgkggrIvKy-i0RJ0xWueKk0STd569P8pZN0M:1vB8q6:IwaHif-D2-i8-mL9BrJWm7QVqu4KexRNehuVIteOAPY",
+        "expire_date": "2025-11-04T09:39:34.864Z"
+    }
+},
+{
+    "model": "clubs.club",
+    "pk": 1,
+    "fields": {
+        "name": "Teddy Billiard Club",
+        "district": 
