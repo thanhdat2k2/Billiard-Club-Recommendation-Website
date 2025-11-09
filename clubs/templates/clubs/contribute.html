@@ -7,13 +7,13 @@
 <div class="contrib-container">
   <h2 class="contrib-title">Đóng góp câu lạc bộ</h2>
 
-  {% if messages %}
+  {% comment %} {% if messages %}
     <ul class="contrib-messages">
       {% for m in messages %}
         <li class="contrib-message {{ m.tags }}">{{ m }}</li>
       {% endfor %}
     </ul>
-  {% endif %}
+  {% endif %} {% endcomment %}
 
   <form method="post" enctype="multipart/form-data" class="contribute-form">
     {% csrf_token %}

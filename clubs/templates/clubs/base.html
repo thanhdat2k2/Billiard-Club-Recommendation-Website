@@ -76,7 +76,20 @@
       </div>
 
       <!-- Main -->
-      <div class="main">{% block main %}{% endblock %}</div>
+      <div class="main">
+        {% if messages %}
+        <div id="toast-container">
+          {% for m in messages %}
+          <div class="toast toast-{{ m.tags }}">
+            <span>{{ m }}</span>
+            <button class="toast-close" type="button" aria-label="Đóng">
+              &times;
+            </button>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %} {% block main %}{% endblock %}
+      </div>
       <!-- Footer -->
       <div class="footer">
         <p class="copyright">&copy; Billiards Hub - All Rights Reserved</p>
