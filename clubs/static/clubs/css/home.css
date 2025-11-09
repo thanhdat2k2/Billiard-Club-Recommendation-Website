@@ -108,7 +108,7 @@ h3 {
 /* PC - Desktop */
 @media (min-width: 1024px) {
   .prominent-clubs {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
 
@@ -116,7 +116,7 @@ h3 {
 @media (min-width: 740px) and (max-width: 1023px) {
   /* Slider vừa màn hình hơn, bớt padding hai bên */
   .hero-slider {
-    padding: 24px 48px 0 48px;   /* trước là 34px 150px */
+    padding: 24px 48px 0 48px; /* trước là 34px 150px */
   }
 
   /* Dấu gạch phân cách bớt “dày”, chừa mép vừa phải */
@@ -128,7 +128,7 @@ h3 {
   .prominent-clubs {
     grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 cột cố định */
     gap: 12px;
-    padding: 12px 32px 28px 32px;                     /* chừa mép hai bên */
+    padding: 12px 32px 28px 32px; /* chừa mép hai bên */
   }
 
   /* Card thu gọn, bám theo lưới – không full-bleed */
@@ -138,24 +138,24 @@ h3 {
     border-radius: 12px;
   }
 
-  .prominent-clubs .card .thumb { border-radius: 12px; }
+  .prominent-clubs .card .thumb {
+    border-radius: 12px;
+  }
 
   .prominent-clubs .card .thumb img {
     width: 100%;
-    height: auto;      /* giữ đúng tỉ lệ ảnh */
+    height: auto; /* giữ đúng tỉ lệ ảnh */
     object-fit: cover;
   }
 }
 
-
 @media (max-width: 739px) {
-
   /* Slider full-bleed, cao auto theo ảnh */
   .hero-slider {
     width: 100vw;
     margin-left: 50%;
-    transform: translateX(-50%);  /* kéo ra full màn hình dù parent có padding */
-    padding: 0;                    /* bỏ padding 34px 200px… ở mobile */
+    transform: translateX(-50%); /* kéo ra full màn hình dù parent có padding */
+    padding: 0; /* bỏ padding 34px 200px… ở mobile */
   }
 
   [data-track] {
@@ -167,8 +167,8 @@ h3 {
   [data-track] > * {
     flex: 0 0 100vw;
     width: 100vw;
-    aspect-ratio: auto;            /* override aspect-ratio:16/9 */
-    height: auto;                  /* để ảnh quyết định chiều cao */
+    aspect-ratio: auto; /* override aspect-ratio:16/9 */
+    height: auto; /* để ảnh quyết định chiều cao */
     object-fit: cover;
   }
 
@@ -184,13 +184,13 @@ h3 {
   }
   /* “Các quán nổi bật” 1 cột full màn hình */
   .prominent-clubs {
-    grid-template-columns: 1fr;    /* 1 cột */
-    padding: 12px 16px 32px;   /* trước là 0 -> nay chừa mép 16px */
-    gap: 12px;      
+    grid-template-columns: 1fr; /* 1 cột */
+    padding: 12px 16px 32px; /* trước là 0 -> nay chừa mép 16px */
+    gap: 12px;
   }
 
   .prominent-clubs .card {
-    width: 100%;                  /* full màn hình */
+    width: 100%; /* full màn hình */
     margin: 0;
     border-radius: 12px;
   }
@@ -201,8 +201,7 @@ h3 {
 
   .prominent-clubs .card .thumb img {
     width: 100%;
-    height: auto;                  /* cao auto theo ảnh */
+    height: auto; /* cao auto theo ảnh */
     object-fit: cover;
   }
 }
-
