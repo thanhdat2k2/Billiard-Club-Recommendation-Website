@@ -87,11 +87,25 @@ WSGI_APPLICATION = 'Billiards_Hub_v1.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
-}
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    # Dùng Postgres (Render, hoặc khi bạn set DATABASE_URL)
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,  # tuỳ chọn, giữ kết nối
+        )
+    }
+else:
+    # Không có DATABASE_URL -> dùng SQLite local
+    print("WARNING: No DATABASE_URL env var, using local SQLite database.")
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
