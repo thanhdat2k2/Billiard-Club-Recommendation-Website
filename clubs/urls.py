@@ -9,4 +9,6 @@ urlpatterns = [
     path("clubs/<int:pk>/", views.club_detail, name="club-detail"),
     path("clubs/<int:pk>/review/", views.submit_review, name="club-review"),
     path('contribute/',views.contribute,name='contribute'),
+    
+    path("debug-storage/", views.debug_storage, name="debug-storage"),
 ]
