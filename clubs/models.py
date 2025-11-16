@@ -5,6 +5,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Avg
 from uuid import uuid4
 import os
+from cloudinary_storage.storage import MediaCloudinaryStorage
+
 
 def club_thumbnail_upload_to(instance: "Club", filename: str) -> str:
     """
@@ -37,7 +39,7 @@ class Club(models.Model):
     review = models.CharField(max_length=200,null=True)
     rate = models.FloatField()
     link = models.CharField(max_length=200,null=True)
-    image_thumb = models.ImageField(upload_to=club_thumbnail_upload_to,null=True,blank=True,validators=[FileExtensionValidator(["jpg", "jpeg", "png", "webp"])])
+    image_thumb = models.ImageField(storage=MediaCloudinaryStorage(),upload_to=club_thumbnail_upload_to,null=True,blank=True,validators=[FileExtensionValidator(["jpg", "jpeg", "png", "webp"])])
 
     def __str__(self):
         return self.name
@@ -48,7 +50,7 @@ class ClubImage(models.Model):
     Ảnh sẽ lưu tại media/slider/<club_id>/...
     """
     club = models.ForeignKey(Club,related_name="images", on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=club_slider_upload_to,validators=[FileExtensionValidator(["jpg", "jpeg", "png", "webp"])])
+    image = models.ImageField(storage=MediaCloudinaryStorage(),upload_to=club_slider_upload_to,validators=[FileExtensionValidator(["jpg", "jpeg", "png", "webp"])])
     display_order = models.PositiveIntegerField(default=0)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     
@@ -117,7 +119,7 @@ class ProposedClub(models.Model):
     price = models.CharField(max_length=200, blank=True)      # dạng text: "40k - 60k"
     table = models.CharField(max_length=200, blank=True)      # vd: "Pool, Carom, Snooker"
     note = models.TextField(blank=True)                       # ghi chú thêm từ người đề xuất
-    image_thumb = models.ImageField(
+    image_thumb = models.ImageField(storage=MediaCloudinaryStorage(),
         upload_to=proposed_thumb_upload_to,
         blank=True, null=True,
         validators=[FileExtensionValidator(["jpg","jpeg","png","webp"])]
