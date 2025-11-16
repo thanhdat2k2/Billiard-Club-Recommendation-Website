@@ -14,6 +14,10 @@ from pathlib import Path
 import dj_database_url
 import os
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'clubs'
+    'clubs',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +92,18 @@ WSGI_APPLICATION = 'Billiards_Hub_v1.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+cloudinary.config( 
+    cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME", "datstorages"),
+    api_key = os.getenv("CLOUDINARY_API_KEY", "958825291651131"),
+    api_secret = os.getenv("CLOUDINARY_API_SECRET", "xDGqZVLyp0Y3l80GE89u36ghXf0")
+)
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME", "datstorages"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY", "958825291651131"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET", "xDGqZVLyp0Y3l80GE89u36ghXf0"),
+}
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
@@ -152,5 +170,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media files (use for file user upload: image, pdf, …)
+# Media files - lưu trên Cloudinary
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'clubs/static/media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
