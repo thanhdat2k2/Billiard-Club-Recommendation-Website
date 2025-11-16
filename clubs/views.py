@@ -12,9 +12,6 @@ import re
 from django.db.models import Q,QuerySet
 from .models import Club, TablesType, ClubImage, ClubReview, ProposedClub
 
-# def base(request):
-#     return render(request, 'clubs/base.html')
-
 def home(request):
     ###############
     # Slider home #
