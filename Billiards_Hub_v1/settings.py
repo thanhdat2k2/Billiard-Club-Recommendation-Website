@@ -86,13 +86,6 @@ WSGI_APPLICATION = 'Billiards_Hub_v1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 cloudinary.config( 
     cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME", "datstorages"),
     api_key = os.getenv("CLOUDINARY_API_KEY", "958825291651131"),
