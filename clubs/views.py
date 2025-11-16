@@ -12,8 +12,6 @@ import re
 from django.db.models import Q,QuerySet
 from .models import Club, TablesType, ClubImage, ClubReview, ProposedClub
 
-from django.conf import settings
-
 def home(request):
     ###############
     # Slider home #
@@ -501,24 +499,3 @@ def contribute(request):
         "proposed_clubs": page_obj.object_list,
     }
     return render(request, "clubs/contribute.html", context)
-
-def debug_storage(request):
-    # LẤY CLUB MỚI NHẤT (vừa tạo để test)
-    club = Club.objects.order_by("-id").first()
-
-    lines = []
-    lines.append(f"DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}")
-
-    if not club:
-        lines.append("No Club found in database.")
-    else:
-        lines.append(f"Club ID: {club.id}")
-        lines.append(f"Club name: {club.name}")
-        if club.image_thumb:
-            lines.append(f"image_thumb.name: {club.image_thumb.name}")
-            lines.append(f"image_thumb.url: {club.image_thumb.url}")
-        else:
-            lines.append("Club has no image_thumb")
-
-    html = "<br>".join(lines)
-    return HttpResponse(html)
